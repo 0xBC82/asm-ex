@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+EXAMPLE=$1
+
+function clean {
+    rm -f main
+    rm -f main.o
+}
+
+cd EXAMPLE=$1
+clean
+nasm -f elf main.asm
+ld -m elf_i386 main.o -o main
+./main && clean || clean
